@@ -28,3 +28,26 @@ export FZF_COMPLETION_TRIGGER=';;'
 # Aliases
 alias sd='cd "$(find * -type d | fzf)"'
 alias vo='vim "`fzf`"'
+alias plint='proselint'
+
+alias sc=spellCheck $1
+function spellCheck() {
+   for file in "$@"
+   do
+      let count=`aspell -a < $file | egrep "^\&" | awk '{print $2}' | sort -u | wc -l | awk '{print $1}'`
+      # if [ $count -eq 0 ]; then
+      #    printf "\n$No spelling errors on $file\n"
+      # fi
+      if [ $count -gt 0 ]; then
+         printf "\nSpelling error(s) in $file\n"
+         echo "======================================================"
+         < $file aspell list |
+            sort |
+            uniq |
+            while read word; do grep -on "\<$word\>" $file; done |
+            sponge |
+            sort -n
+         # aspell -a < $file  | egrep "^\&" | awk '{print $2}' | sort -u
+      fi
+   done
+}
