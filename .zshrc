@@ -28,15 +28,15 @@ export FZF_COMPLETION_TRIGGER=';;'
 # Aliases
 alias sd='cd "$(find * -type d | fzf)"'
 alias vo='vim "`fzf`"'
-alias plint='proselint'
 
 # Spellcheck for .md files.
 # https://superuser.com/questions/835860/spell-check-in-the-bash-cli
 # https://stackoverflow.com/questions/5567794/can-aspell-output-line-number-and-not-offset-in-pipe-mode
-alias sc=spellCheck $1
-function spellCheck() {
+alias plint=lintProse $1
+function lintProse() {
    for file in "$@"
    do
+      proselint $file
       let count=`aspell -a < $file | egrep "^\&" | awk '{print $2}' | sort -u | wc -l | awk '{print $1}'`
       # if [ $count -eq 0 ]; then
       #    printf "\n$No spelling errors on $file\n"
@@ -45,11 +45,10 @@ function spellCheck() {
          printf "\nSpelling error(s) in $file\n"
          echo "======================================================"
          < $file aspell list |
-            sort |
-            uniq |
             while read word; do grep -on "\<$word\>" $file; done |
             sponge |
-            sort -n
+            sort -n |
+            uniq
          # aspell -a < $file  | egrep "^\&" | awk '{print $2}' | sort -u
       fi
    done
