@@ -30,6 +30,9 @@ alias sd='cd "$(find * -type d | fzf)"'
 alias vo='vim "`fzf`"'
 alias plint='proselint'
 
+# Spellcheck for .md files.
+# https://superuser.com/questions/835860/spell-check-in-the-bash-cli
+# https://stackoverflow.com/questions/5567794/can-aspell-output-line-number-and-not-offset-in-pipe-mode
 alias sc=spellCheck $1
 function spellCheck() {
    for file in "$@"
