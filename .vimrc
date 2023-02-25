@@ -186,11 +186,19 @@ Plug 'preservim/nerdtree'
 " Close NerdTree after opening file
 let NERDTreeQuitOnOpen=1
 
+" Buffer navigation
+Plug 'jeetsukumaran/vim-buffergator'
+
 " Vimtex for latex
 Plug 'lervag/vimtex'
 
 " Syntax highlighting via polyglot
 Plug 'sheerun/vim-polyglot'
+
+" Visual markers for indentation
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '|'
+let g:indentLine_setConceal = 0
 
 " Markdown drawer (navigation using markdown headings)
 " Plug 'Scuilion/markdown-drawer', { 'for': 'markdown' }
@@ -208,6 +216,13 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 " Surround plugin for surrounding text with parens, brackets, etc
 Plug 'tpope/vim-surround'
+
+" Enable automatically line wrapping parameters
+Plug 'FooSoft/vim-argwrap'
+nnoremap <silent> <leader>w :ArgWrap<CR>
+
+" Disable search highlighting when done searching
+Plug 'romainl/vim-cool'
 
 " Vim/git integration
 Plug 'tpope/vim-fugitive'
@@ -227,6 +242,9 @@ Plug 'junegunn/fzf'
 " Add everforest color theme
 Plug 'sainnhe/everforest'
 
+" Flake8 plugin for Python/PEP8
+Plug 'nvie/vim-flake8'
+
 " Initialize plugin system
 call plug#end()
 
@@ -244,4 +262,7 @@ let &t_ZH="\e[3m"
 "let &t_ZR="\e[23m"
 let g:everforest_ui_contrast = 'high'
 colorscheme everforest
+
+" Run flake8 on python files on write
+autocmd BufWritePost *.py call flake8#Flake8()
 
