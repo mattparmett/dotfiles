@@ -7,15 +7,24 @@ fi
 
 # Enable vim mode
 export EDITOR=vim
-bindkey -v
+export GIT_EDITOR=vim
+# bindkey -v
 # source "$HOME/.zsh-vim-mode.plugin.zsh"
+
+# Enable history search with up arrow
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # FZF settings
@@ -28,6 +37,7 @@ export FZF_COMPLETION_TRIGGER=';;'
 # Aliases
 alias sd='cd "$(find * -type d | fzf)"'
 alias vo='vim "`fzf`"'
+function mkcd() { mkdir -p $@ && cd ${@:$#}  }
 
 # Spellcheck for .md files.
 # https://superuser.com/questions/835860/spell-check-in-the-bash-cli
