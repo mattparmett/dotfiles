@@ -108,9 +108,14 @@ set t_vb=
 
 " MARKDOWN --------------------------------------------- {{{
 
+" Enable vim-surround bolding via e.g. 'ysiwb'
+autocmd FileType markdown let b:surround_{char2nr('b')} = "**\r**"
+" let b:surround_{char2nr('b')} = "**\r**"
+
 " Add code block syntax highlighting
-let g:markdown_fenced_languages = ['java', 'python', 'html', 'latex', 'tex']
-let g:vim_markdown_fenced_languages = ['java', 'python', 'html', 'latex', 'tex']
+let g:markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex', 'tex']
+let g:vim_markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex', 'tex']
+let g:markdown_minlines = 100
 
 " Fix for autoindent issue after end of list
 " https://stackoverflow.com/questions/46876387/vim-with-markdown-how-to-remove-blankspace-after-bullet-point
@@ -118,7 +123,7 @@ let g:vim_markdown_fenced_languages = ['java', 'python', 'html', 'latex', 'tex']
 let g:vim_markdown_new_list_item_indent = 0
 
 " Disable markdown folding in vim-markdown
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_folding_disabled = 1
 
 " Conceal formatting
 set conceallevel=2
