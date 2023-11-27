@@ -63,3 +63,17 @@ function lintProse() {
       fi
    done
 }
+
+# For Building Git
+alias inflate='python -c "import sys; import zlib; print(zlib.decompress(sys.stdin.buffer.read()
+))"'
+export PYLE_AUTHOR_NAME="Matt Parmett"
+export PYLE_AUTHOR_EMAIL="matt.parmett@gmail.com"
+export PATH=$PATH:/Users/matt/iCloud/Programming/pyle/pyle/bin
+
+# For CodeQL
+export PATH=$PATH:/Users/matt/Documents/codeql
+export CODEQL_EXTRACTOR_PYTHON_DISABLE_AUTOMATIC_VENV_EXCLUDE=1
+
+# For Tailscale
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
