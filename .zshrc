@@ -38,6 +38,9 @@ export FZF_COMPLETION_TRIGGER=';;'
 alias sd='cd "$(find * -type d | fzf)"'
 alias vo='vim "`fzf`"'
 function mkcd() { mkdir -p $@ && cd ${@:$#}  }
+# Adds "git last [n]" command: show oneline summary of last n commits
+alias git='git '
+alias -g last='log --oneline | head -n'
 
 # Spellcheck for .md files.
 # https://superuser.com/questions/835860/spell-check-in-the-bash-cli
