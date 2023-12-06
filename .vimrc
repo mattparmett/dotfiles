@@ -79,6 +79,10 @@ nmap <C-4> g$
 nmap <C-6> g^
 nmap <C-0> g^
 
+" Map Ctrl-f to indent current line in insert mode
+" (Ctrl-d already de-dents)
+inoremap <C-f> <C-t>
+
 " Map alias for next/prev buffer
 map <leader>k :bnext<CR>
 map <leader>j :bprevious<CR>
@@ -269,5 +273,5 @@ let g:everforest_ui_contrast = 'high'
 colorscheme everforest
 
 " Run flake8 on python files on write
-autocmd BufWritePost *.py call flake8#Flake8()
+" autocmd BufWritePost *.py call flake8#Flake8()
 
