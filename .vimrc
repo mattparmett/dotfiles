@@ -27,6 +27,9 @@ filetype indent on
 " Use syntax highlighting
 syntax on
 
+" Enable mouse actions (clicks, highlighting, etc.)
+" set mouse=a
+
 " Display hybrid line numbers on the left hand side
 set number relativenumber
 
@@ -98,7 +101,7 @@ set breakindent
 " Enable backspace through the following elements
 set backspace=indent,eol,start
 
-set scrolloff=1
+set scrolloff=3
 
 " Set indent to 4 spaces
 set shiftwidth=4
