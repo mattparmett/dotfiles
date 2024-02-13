@@ -30,6 +30,9 @@ syntax on
 " Enable mouse actions (clicks, highlighting, etc.)
 " set mouse=a
 
+" Use system clipboard
+set clipboard=unnamed
+
 " Display hybrid line numbers on the left hand side
 set number relativenumber
 
@@ -37,7 +40,7 @@ set number relativenumber
 set cursorline
 
 " Map leader to tab
-let mapleader = "\<tab>" 
+" let mapleader = \"\<tab>" 
 
 " Show leader key when pressed
 set showcmd
@@ -91,7 +94,7 @@ map <leader>k :bnext<CR>
 map <leader>j :bprevious<CR>
 
 " Map alias for NERDTreeToggle
-nmap <silent> <C-t> :NERDTreeToggle<CR>
+" nmap <silent> <C-t> :NERDTreeToggle<CR>
 
 " Enable auto-indent
 set autoindent
@@ -101,6 +104,7 @@ set breakindent
 " Enable backspace through the following elements
 set backspace=indent,eol,start
 
+" Keep cursor at least 3 lines above bottom of window
 set scrolloff=3
 
 " Set indent to 4 spaces
@@ -120,9 +124,12 @@ autocmd FileType markdown let b:surround_{char2nr('b')} = "**\r**"
 " let b:surround_{char2nr('b')} = "**\r**"
 
 " Add code block syntax highlighting
-let g:markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex', 'tex']
-let g:vim_markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex', 'tex']
-let g:markdown_minlines = 100
+" Note: need to disable vim-polyglot on markdown to ensure code fences are
+" highlighted
+" let g:polyglot_disabled = ['md', 'markdown']
+let g:markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex=tex', 'sql', 'js=javascript', 'typescript']
+let g:vim_markdown_fenced_languages = ['java', 'c', 'python', 'html', 'latex=tex', 'sql', 'js=javascript', 'typescript']
+let g:markdown_minlines = 999
 
 " Fix for autoindent issue after end of list
 " https://stackoverflow.com/questions/46876387/vim-with-markdown-how-to-remove-blankspace-after-bullet-point
@@ -130,7 +137,7 @@ let g:markdown_minlines = 100
 let g:vim_markdown_new_list_item_indent = 0
 
 " Disable markdown folding in vim-markdown
-" let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_disabled = 1
 
 " Conceal formatting
 set conceallevel=2
@@ -194,9 +201,13 @@ let g:airline_section_warning = ''
 
 
 " NerdTree file browsing
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 " Close NerdTree after opening file
-let NERDTreeQuitOnOpen=1
+" let NERDTreeQuitOnOpen=1
+
+" Vinegar file browser
+" Type \"-" to enter the browser
+Plug 'tpope/vim-vinegar'
 
 " Buffer navigation
 Plug 'jeetsukumaran/vim-buffergator'
@@ -219,8 +230,8 @@ let g:indentLine_setConceal = 0
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " For additional markdown functionality like concealing, folding, etc
-" Plug 'godlygeek/tabular'
-" Plug 'preservim/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 
 " Pandoc integration
 " Plug 'vim-pandoc/vim-pandoc'
