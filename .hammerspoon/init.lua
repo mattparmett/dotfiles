@@ -165,6 +165,30 @@ function rightWinFrame()
   return f
 end
 
+function topWinFrame()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local max = win:screen():frame()
+
+  f.x = max.x
+  f.y = max.y
+  f.w = max.w
+  f.h = max.h / 2
+  return f
+end
+
+function bottomWinFrame()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local max = win:screen():frame()
+
+  f.x = max.x
+  f.y = max.y + (max.h / 2)
+  f.w = max.w
+  f.h = max.h / 2
+  return f
+end
+
 function isSnappedTo(direction)
   local curWinFrame = hs.window.focusedWindow():frame()
   local geo = nil
@@ -186,6 +210,7 @@ function isSnappedTo(direction)
   )
 end
 
+-- Bind Ctrl+Up/Left/Right for max, left half, right half
 directions = {"left", "right", "up"}
 for _, direction in ipairs(directions) do
   hs.hotkey.bind({"ctrl"}, direction, function()
@@ -227,6 +252,36 @@ for _, direction in ipairs(directions) do
     end
   end)
 end
+
+-- Bind Ctrl+Shift+Up/Down for top/bottom half
+half_directions = {"up", "down"}
+for _, direction in ipairs(half_directions) do
+  hs.hotkey.bind({"ctrl", "shift"}, direction, function()
+    local win = hs.window.focusedWindow()
+    local frame = win:frame()
+    local screen = win:screen()
+    local max = screen:frame()
+
+    -- Disable accessibility AXEnhancedUserInterface
+    -- Avoids sluggish window manipulation
+    local axApp = hs.axuielement.applicationElement(win:application())
+    local wasEnhanced = axApp.AXEnhancedUserInterface
+    if wasEnhanced then
+      axApp.AXEnhancedUserInterface = false
+    end
+
+    if direction == "up" then
+      win:setFrame(topWinFrame())
+    elseif direction == "down" then
+      win:setFrame(bottomWinFrame())
+    end
+
+    if wasEnhanced then
+      axApp.AXEnhancedUserInterface = true
+    end
+  end)
+end
+
 
 ----------------------
 -- Window management
